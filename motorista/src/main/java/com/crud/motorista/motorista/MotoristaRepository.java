@@ -1,5 +1,8 @@
 package com.crud.motorista.motorista;
 
-public interface MotoristaRepository {
-    
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+public interface MotoristaRepository extends JpaRepository<Motorista,Integer>{
+    Motorista findbyOcupMotorista(String ocupacao); 
 }

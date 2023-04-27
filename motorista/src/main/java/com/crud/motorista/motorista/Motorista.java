@@ -3,15 +3,14 @@ package com.crud.motorista.motorista;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class Motorista {
     
     @Id
@@ -19,21 +18,23 @@ public class Motorista {
     private Integer id;
 
     @Column
-    private String identifier;
-
-    @Column
+    @NonNull
     private String name;
 
     @Column
+    @NonNull
     private Integer cpf;
 
     @Column
+    @NonNull
     private String placa;
 
     @Column
+    @NonNull
     private String modelo;
 
     @Column
+    @NonNull
     private Double precoViagem;
 
     @Column
