@@ -1,10 +1,11 @@
 package com.crud.motorista.motorista;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.crud.motorista.motorista.DTO.MotoristaDTO;
+import com.crud.motorista.motorista.DTO.MotoristaSaveDTO;
 
 public class MotoristaService {
     
@@ -15,14 +16,14 @@ public class MotoristaService {
         return motoristaRepository.findAll();
     }
 
-    public Motorista cadastrarMotorista(MotoristaDTO motorista){
-        Motorista m = motoristaRepository.findById(motorista.getId());
+    public Motorista cadastrarMotorista(Integer id, MotoristaSaveDTO motorista){
+        Motorista m = motoristaRepository.findById(id);
         m.setOcupacao("Disponivel");
         m.setStatus("Pendente");
         return motoristaRepository.save(m);
     }
 
     public Motorista editarMotorista(Motorista m){
-
+        Motorista motorista = motoristaRepository.findById(m.getId());
     }
 }
