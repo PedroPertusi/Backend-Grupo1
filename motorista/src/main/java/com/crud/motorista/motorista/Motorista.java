@@ -18,6 +18,9 @@ public class Motorista {
     private Integer id;
 
     @Column
+    private String identifier;
+
+    @Column
     @NonNull
     private String name;
 
@@ -26,15 +29,12 @@ public class Motorista {
     private Integer cpf;
 
     @Column
-    @NonNull
     private String placa;
 
     @Column
-    @NonNull
     private String modelo;
 
     @Column
-    @NonNull
     private Double precoViagem;
 
     @Column

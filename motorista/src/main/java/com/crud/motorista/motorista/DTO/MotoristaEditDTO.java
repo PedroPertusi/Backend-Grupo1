@@ -6,20 +6,12 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MotoristaSaveDTO {
-
-    private String name;
-
-    private Integer cpf;
-
+public class MotoristaEditDTO {
     private String placa;
 
     private String modelo;
 
     private Double precoViagem;
-
-    private String status;
-
-    private String ocupacao; 
     
+    private String ocupacao;
 }
