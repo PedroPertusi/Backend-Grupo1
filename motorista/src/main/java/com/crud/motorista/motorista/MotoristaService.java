@@ -81,6 +81,14 @@ public class MotoristaService {
         return Motorista.converteReturnDTO(m);
     }
 
-    
+    public MotoristaReturnDTO liberaMotorista(String identifier) {
+        Motorista m = motoristaRepository.findByIdentifier(identifier);
+        if (m == null) return null;
+        m.setOcupacao("DISPONIVEL");
+        motoristaRepository.save(m);
+        return Motorista.converteReturnDTO(m);
+    }
+
+
 
 }
