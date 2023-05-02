@@ -24,13 +24,13 @@ public class MotoristaController {
     }
 
     // Rota que retorna um motorista disponível aleatório
-    @GetMapping
+    @GetMapping("/available")
     public MotoristaReturnDTO motoristaDisponivel() {
         return motoristaService.motoristaDisponivel();
     }
 
     // Rota que altera o motorista de indisponível p/ disponível 
-    @PostMapping("/available/{identifier}")
+    @PostMapping("/{identifier}/ocupacao")
     public MotoristaReturnDTO liberaMotorista (@PathVariable String identifier) {
         return motoristaService.liberaMotorista(identifier);
     }

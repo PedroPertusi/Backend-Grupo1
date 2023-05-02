@@ -27,8 +27,8 @@ public class MotoristaService {
         m.setPlaca(motorista.getPlaca());
         m.setModelo(motorista.getModelo());
         m.setPrecoViagem(motorista.getPrecoViagem());
-        m.setOcupacao("Disponivel");
-        m.setStatus("Pendente");
+        m.setOcupacao("INDISPONIVEL");
+        m.setStatus(null);
         m.setIdentifier(UUID.randomUUID().toString());
         motoristaRepository.save(m);
 
@@ -37,6 +37,7 @@ public class MotoristaService {
 
     public MotoristaReturnDTO editarMotorista(String identifier, MotoristaEditDTO m){
         Motorista motorista = motoristaRepository.findByIdentifier(identifier);
+        
         if(m.getModelo()!=null && m.getPlaca()!=null){
             motorista.setModelo(m.getModelo());
             motorista.setPlaca(m.getPlaca());
@@ -47,6 +48,8 @@ public class MotoristaService {
         if(m.getPrecoViagem()!=null){
             motorista.setPrecoViagem(m.getPrecoViagem());
         }
+        motorista.setOcupacao("INDISPONIVEL");
+        motorista.setStatus("PENDENTE");
         motoristaRepository.save(motorista);
 
         MotoristaReturnDTO saida = new MotoristaReturnDTO(motorista.getName(), motorista.getPlaca(), motorista.getModelo());
@@ -62,6 +65,7 @@ public class MotoristaService {
 
         if (m.getPlaca() != null && (m.getPlaca().matches("^[a-zA-Z]{2}\\d{2}[a-zA-Z]{1}\\d{2}$") || m.getPlaca().matches("^[a-zA-Z]{3}\\d{4}$")) && m.getModelo() != null && m.getPrecoViagem() != null && m.getPrecoViagem() > 0) {
             m.setStatus("LIBERADO");
+            m.setOcupacao("DISPONIVEL");
             motoristaRepository.save(m);
             return Motorista.converteReturnDTO(m);
         }
@@ -69,8 +73,6 @@ public class MotoristaService {
         m.setStatus("PENDENTE");
         motoristaRepository.save(m);
         return Motorista.converteReturnDTO(m);
-        
-
     }
 
     public MotoristaReturnDTO motoristaDisponivel() {
@@ -84,6 +86,9 @@ public class MotoristaService {
     public MotoristaReturnDTO liberaMotorista(String identifier) {
         Motorista m = motoristaRepository.findByIdentifier(identifier);
         if (m == null) return null;
+
+        if (m.getStatus() == "PENDENTE") return null;
+
         m.setOcupacao("DISPONIVEL");
         motoristaRepository.save(m);
         return Motorista.converteReturnDTO(m);
