@@ -37,7 +37,7 @@ public class MotoristaService {
 
     public MotoristaReturnDTO editarMotorista(String identifier, MotoristaEditDTO m){
         Motorista motorista = motoristaRepository.findByIdentifier(identifier);
-        
+
         if(m.getModelo()!=null && m.getPlaca()!=null){
             motorista.setModelo(m.getModelo());
             motorista.setPlaca(m.getPlaca());
@@ -54,6 +54,16 @@ public class MotoristaService {
 
         MotoristaReturnDTO saida = new MotoristaReturnDTO(motorista.getName(), motorista.getPlaca(), motorista.getModelo());
         return saida;
+    }
+
+    public MotoristaReturnDTO cancelaMotorista(String identifier){
+        Motorista m = motoristaRepository.findByIdentifier(identifier);
+        if (m == null) return null;
+
+        m.setStatus("CANCELADO");
+        m.setOcupacao("INDISPONIVEL");
+        motoristaRepository.save(m);
+        return Motorista.converteReturnDTO(m);
     }
 
     public MotoristaReturnDTO validaMotorista(String identifier) {
@@ -87,7 +97,7 @@ public class MotoristaService {
         Motorista m = motoristaRepository.findByIdentifier(identifier);
         if (m == null) return null;
 
-        if (m.getStatus() == "PENDENTE") return null;
+        if (m.getStatus() == "PENDENTE" || m.getStatus() == "CANCELADO") return null;
 
         m.setOcupacao("DISPONIVEL");
         motoristaRepository.save(m);

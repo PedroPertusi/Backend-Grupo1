@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +16,11 @@ public class MotoristaController {
     @Autowired
     private MotoristaService motoristaService;
 
-
+    // Rota que cancela o motorista (status CANCELADO e ocupacao INDISPONIVEL)
+    @PutMapping("/{identifier}/cancel")
+    public MotoristaReturnDTO cancelaMotorista(@PathVariable String identifier) {
+        return motoristaService.cancelaMotorista(identifier);
+    }
     
     // Rota que valida o motorista (status LIBERADO para fazer corridas)
     @GetMapping("/{identifier}")
