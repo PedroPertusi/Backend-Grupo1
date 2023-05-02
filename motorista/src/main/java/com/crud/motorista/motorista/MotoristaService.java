@@ -1,6 +1,7 @@
 package com.crud.motorista.motorista;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -51,4 +52,35 @@ public class MotoristaService {
         MotoristaReturnDTO saida = new MotoristaReturnDTO(motorista.getName(), motorista.getPlaca(), motorista.getModelo());
         return saida;
     }
+
+    public MotoristaReturnDTO validaMotorista(String identifier) {
+        Motorista m = motoristaRepository.findByIdentifier(identifier);
+
+        if (m == null) return null;
+
+        if (m.getStatus() == "CANCELADO") return null;
+
+        if (m.getPlaca() != null && (m.getPlaca().matches("^[a-zA-Z]{2}\\d{2}[a-zA-Z]{1}\\d{2}$") || m.getPlaca().matches("^[a-zA-Z]{3}\\d{4}$")) && m.getModelo() != null && m.getPrecoViagem() != null && m.getPrecoViagem() > 0) {
+            m.setStatus("LIBERADO");
+            motoristaRepository.save(m);
+            return Motorista.converteReturnDTO(m);
+        }
+
+        m.setStatus("PENDENTE");
+        motoristaRepository.save(m);
+        return Motorista.converteReturnDTO(m);
+        
+
+    }
+
+    public MotoristaReturnDTO getMotoristaDisponivel() {
+        Motorista m = motoristaRepository.findFirstByOcupMotorista("DISPONIVEL");
+        if (m == null) return null;
+        m.setOcupacao("INDISPONIVEL");
+        motoristaRepository.save(m);
+        return Motorista.converteReturnDTO(m);
+    }
+
+    
+
 }
