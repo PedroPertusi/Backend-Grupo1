@@ -2,6 +2,7 @@ package com.crud.motorista.motorista;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,11 +15,11 @@ public class MotoristaService {
     @Autowired
     MotoristaRepository motoristaRepository;
 
-    public List<Motorista> listAll(){
-        return motoristaRepository.findAll();
+    public List<MotoristaReturnDTO> listAll(){
+        return motoristaRepository.findAll().stream().map(motorista->Motorista.converteReturnDTO(motorista)).collect(Collectors.toList());
     }
 
-    public Motorista cadastrarMotorista(MotoristaSaveDTO motorista){
+    public MotoristaReturnDTO cadastrarMotorista(MotoristaSaveDTO motorista){
         Motorista m = new Motorista(null, null);
         m.setCpf(motorista.getCpf());
         m.setName(motorista.getName());
@@ -28,7 +29,9 @@ public class MotoristaService {
         m.setOcupacao("Disponivel");
         m.setStatus("Pendente");
         m.setIdentifier(UUID.randomUUID().toString());
-        return motoristaRepository.save(m);
+        motoristaRepository.save(m);
+
+        return Motorista.converteReturnDTO(m);
     }
 
     public MotoristaReturnDTO editarMotorista(String identifier, MotoristaEditDTO m){
@@ -43,6 +46,7 @@ public class MotoristaService {
         if(m.getPrecoViagem()!=null){
             motorista.setPrecoViagem(m.getPrecoViagem());
         }
+        motoristaRepository.save(motorista);
 
         MotoristaReturnDTO saida = new MotoristaReturnDTO(motorista.getName(), motorista.getPlaca(), motorista.getModelo());
         return saida;

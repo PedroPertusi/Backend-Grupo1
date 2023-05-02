@@ -1,5 +1,7 @@
 package com.crud.motorista.motorista;
 
+import com.crud.motorista.motorista.DTO.MotoristaReturnDTO;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,5 +44,9 @@ public class Motorista {
 
     @Column
     private String ocupacao;
+
+    public static MotoristaReturnDTO converteReturnDTO(Motorista m){
+        return new MotoristaReturnDTO(m.getName(), m.getPlaca(), m.getModelo());
+    }
 
 }
