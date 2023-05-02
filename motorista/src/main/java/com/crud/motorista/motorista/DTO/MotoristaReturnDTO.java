@@ -14,5 +14,11 @@ public class MotoristaReturnDTO {
     private String placa;
 
     private String modelo;
+
+    private String identifier;
+
+    private String ocupacao;
+
+    private String status;
     
 }

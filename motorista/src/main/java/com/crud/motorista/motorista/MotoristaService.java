@@ -1,7 +1,6 @@
 package com.crud.motorista.motorista;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -52,8 +51,7 @@ public class MotoristaService {
         motorista.setStatus("PENDENTE");
         motoristaRepository.save(motorista);
 
-        MotoristaReturnDTO saida = new MotoristaReturnDTO(motorista.getName(), motorista.getPlaca(), motorista.getModelo());
-        return saida;
+        return Motorista.converteReturnDTO(motorista);
     }
 
     public MotoristaReturnDTO cancelaMotorista(String identifier){
