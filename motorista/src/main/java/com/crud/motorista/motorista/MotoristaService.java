@@ -73,7 +73,7 @@ public class MotoristaService {
 
     }
 
-    public MotoristaReturnDTO getMotoristaDisponivel() {
+    public MotoristaReturnDTO motoristaDisponivel() {
         Motorista m = motoristaRepository.findFirstByOcupMotorista("DISPONIVEL");
         if (m == null) return null;
         m.setOcupacao("INDISPONIVEL");
