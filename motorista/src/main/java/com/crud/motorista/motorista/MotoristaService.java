@@ -27,7 +27,7 @@ public class MotoristaService {
         m.setModelo(motorista.getModelo());
         m.setPrecoViagem(motorista.getPrecoViagem());
         m.setOcupacao("INDISPONIVEL");
-        m.setStatus(null);
+        m.setStatus("PENDENTE");
         m.setIdentifier(UUID.randomUUID().toString());
         motoristaRepository.save(m);
 
