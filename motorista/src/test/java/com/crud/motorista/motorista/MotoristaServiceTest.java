@@ -53,7 +53,7 @@ public class MotoristaServiceTest {
     void cadastrarMotoristaTest() {
         MotoristaSaveDTO m1 = new MotoristaSaveDTO(null, null, null, null, null);
         m1.setName("Pedro Pertusi");
-        m1.setCpf(12345);
+        m1.setCpf("12345");
         m1.setPlaca("123deOliveira4");
         m1.setModelo("Ford Eco Sport");
         m1.setPrecoViagem(19.90);
@@ -90,8 +90,8 @@ public class MotoristaServiceTest {
         MotoristaReturnDTO resp = motoristaService.editarMotorista(null, editDTO);
 
         Assertions.assertEquals(m1.getName(), resp.getName());
-        Assertions.assertFalse(m1.getPlaca().equals(resp.getPlaca()));
-        Assertions.assertFalse(m1.getModelo().equals(resp.getModelo()));
+        Assertions.assertEquals(m1.getPlaca(), resp.getPlaca());
+        Assertions.assertEquals(m1.getModelo(), resp.getModelo());
         Assertions.assertEquals(m1.getOcupacao(), resp.getOcupacao());
         Assertions.assertEquals(m1.getStatus(), resp.getStatus());
 
