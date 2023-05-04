@@ -20,14 +20,12 @@ public class MotoristaService {
     }
 
     public MotoristaReturnDTO cadastrarMotorista(MotoristaSaveDTO motorista){
-        Motorista m = new Motorista(null, null);
-        m.setCpf(motorista.getCpf());
-        m.setName(motorista.getName());
+        Motorista m = new Motorista(motorista.getName(), motorista.getCpf());
         m.setPlaca(motorista.getPlaca());
         m.setModelo(motorista.getModelo());
         m.setPrecoViagem(motorista.getPrecoViagem());
         m.setOcupacao("INDISPONIVEL");
-        m.setStatus(null);
+        m.setStatus("PENDENTE");
         m.setIdentifier(UUID.randomUUID().toString());
         motoristaRepository.save(m);
 

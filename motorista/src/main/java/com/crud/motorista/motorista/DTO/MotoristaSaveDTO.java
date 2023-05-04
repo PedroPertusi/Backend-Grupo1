@@ -17,9 +17,5 @@ public class MotoristaSaveDTO {
     private String modelo;
 
     private Double precoViagem;
-
-    private String status;
-
-    private String ocupacao; 
     
 }
