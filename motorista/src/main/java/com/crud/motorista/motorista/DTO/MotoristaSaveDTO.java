@@ -10,7 +10,7 @@ public class MotoristaSaveDTO {
 
     private String name;
 
-    private Integer cpf;
+    private String cpf;
 
     private String placa;
 

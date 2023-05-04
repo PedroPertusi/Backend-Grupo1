@@ -28,7 +28,7 @@ public class Motorista {
 
     @Column
     @NonNull
-    private Integer cpf;
+    private String cpf;
 
     @Column
     private String placa;
