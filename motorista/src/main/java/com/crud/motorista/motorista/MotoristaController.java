@@ -1,6 +1,7 @@
 package com.crud.motorista.motorista;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,12 @@ import com.crud.motorista.motorista.DTO.MotoristaReturnDTO;
 public class MotoristaController {
     @Autowired
     private MotoristaService motoristaService;
+    
+    // Rota que deleta o motorista (apaga da DB)
+    @DeleteMapping("/{identifier}")
+    public boolean deleteMotorista(@PathVariable String identifier) {
+        return motoristaService.deleteMotorista(identifier);
+    }
 
     // Rota que cancela o motorista (status CANCELADO e ocupacao INDISPONIVEL)
     @PutMapping("/{identifier}/cancel")
