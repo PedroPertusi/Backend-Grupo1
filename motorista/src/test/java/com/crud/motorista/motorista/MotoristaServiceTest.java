@@ -26,13 +26,13 @@ public class MotoristaServiceTest {
 
     @Test
     void listAllTest(){
-        Motorista m1 = new Motorista("Pedro Pertusi", 12345);
+        Motorista m1 = new Motorista("Pedro Pertusi", "12345");
         m1.setIdentifier("2204");
         m1.setName("Pedro Pertusi");
         m1.setPlaca("123deOliveira4");
         m1.setModelo("Ford Eco Sport");
 
-        Motorista m2 = new Motorista("Leonardo Scarlato", 12345);
+        Motorista m2 = new Motorista("Leonardo Scarlato", "12345");
         m2.setIdentifier("6969");
         m2.setName("Leonardo Scarlato AKA Leozão Bota Quente");
         m2.setPlaca("ABC1D23");
@@ -71,7 +71,7 @@ public class MotoristaServiceTest {
 
     @Test
     void editarMotoristaTest(){
-        Motorista m1 = new Motorista("Pedro Pertusi", 12345);
+        Motorista m1 = new Motorista("Pedro Pertusi", "12345");
         m1.setPlaca("123deOliveira4");
         m1.setModelo("Ford Eco Sport");
         m1.setPrecoViagem(19.90);
