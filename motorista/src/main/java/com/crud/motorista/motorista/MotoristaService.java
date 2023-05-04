@@ -52,6 +52,13 @@ public class MotoristaService {
         return Motorista.converteReturnDTO(motorista);
     }
 
+    public boolean deleteMotorista(String identifier) {
+        Motorista m = motoristaRepository.findByIdentifier(identifier);
+        if (m == null) return false;
+        motoristaRepository.delete(m);
+        return true;
+    }
+
     public MotoristaReturnDTO cancelaMotorista(String identifier){
         Motorista m = motoristaRepository.findByIdentifier(identifier);
         if (m == null) return null;
