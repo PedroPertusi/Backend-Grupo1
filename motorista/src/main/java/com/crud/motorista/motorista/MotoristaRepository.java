@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface MotoristaRepository extends JpaRepository<Motorista,Integer>{
-    Motorista findFirstByOcupMotorista(String ocupacao);
+    Motorista findFirstByOcupacao(String ocupacao);
     Motorista findByIdentifier(String identifier);
 }
