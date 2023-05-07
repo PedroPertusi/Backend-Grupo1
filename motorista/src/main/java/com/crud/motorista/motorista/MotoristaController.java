@@ -35,7 +35,7 @@ public class MotoristaController {
     }
 
     // Rota que edita motorista
-    @PutMapping
+    @PutMapping("/motorista/{identifier}")
     public MotoristaReturnDTO editarMotorista (@RequestBody MotoristaEditDTO m, @PathVariable String identifier) {
         return motoristaService.editarMotorista(identifier, m);
     }
