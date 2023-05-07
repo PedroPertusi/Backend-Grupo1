@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.crud.motorista.motorista.DTO.MotoristaReturnDTO;
+import com.crud.motorista.motorista.DTO.MotoristaSaveDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ExtendWith(MockitoExtension.class)
@@ -53,5 +54,23 @@ public class MotoristaControllertest {
         String resp = result.getResponse().getContentAsString();
         Assertions.assertEquals(om.writeValueAsString(motoristas), resp);
     }
+
+    void saveMotorista() throws Exception {
+        MotoristaSaveDTO mSave = new MotoristaSaveDTO("Pedro", "ABC", "ABC", "M1", 100.00);
+        MotoristaReturnDTO mReturn = new MotoristaReturnDTO("Pedro", "ABC", "ABC", "M1", "", "");
+
+        Mockito.when(motoristaService.cadastrarMotorista(mSave)).thenReturn(mReturn);
+
+        MvcResult result = mockMvc
+            .perform(MockMvcRequestBuilders.post("/motorista"))
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andReturn();
+
+        ObjectMapper om = new ObjectMapper();
+
+        String resp = result.getResponse().getContentAsString();
+        Assertions.assertEquals(om.writeValueAsString(mReturn), resp);
+    }
+    
     
 }
