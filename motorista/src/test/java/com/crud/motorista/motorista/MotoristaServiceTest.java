@@ -53,7 +53,7 @@ public class MotoristaServiceTest {
     void cadastrarMotoristaTest() {
         MotoristaSaveDTO m1 = new MotoristaSaveDTO(null, null, null, null, null);
         m1.setName("Pedro Pertusi");
-        m1.setCpf(12345);
+        m1.setCpf("12345");
         m1.setPlaca("123deOliveira4");
         m1.setModelo("Ford Eco Sport");
         m1.setPrecoViagem(19.90);
@@ -90,13 +90,186 @@ public class MotoristaServiceTest {
         MotoristaReturnDTO resp = motoristaService.editarMotorista(null, editDTO);
 
         Assertions.assertEquals(m1.getName(), resp.getName());
-        Assertions.assertFalse(m1.getPlaca().equals(resp.getPlaca()));
-        Assertions.assertFalse(m1.getModelo().equals(resp.getModelo()));
+        Assertions.assertEquals(m1.getPlaca(), resp.getPlaca());
+        Assertions.assertEquals(m1.getModelo(), resp.getModelo());
         Assertions.assertEquals(m1.getOcupacao(), resp.getOcupacao());
         Assertions.assertEquals(m1.getStatus(), resp.getStatus());
 
+    }
+
+    @Test
+    void validaMotoristaTestInvalido() {
+        Motorista m1 = new Motorista("Pedro Pertusi", "12345");
+        m1.setPlaca("123deOliveira4");
+        m1.setModelo("Ford Eco Sport");
+        m1.setPrecoViagem(19.90);
+        m1.setOcupacao("INDISPONIVEL");
+        m1.setStatus("PENDENTE");
+        m1.setIdentifier("meu deus meu senhor me ajuda por favor");
+
+        Mockito.when(motoristaRepository.findByIdentifier(Mockito.any())).thenReturn(m1);
+
+
+        MotoristaReturnDTO resp = motoristaService.validaMotorista(null);
+
+
+        Assertions.assertEquals(m1.getName(), resp.getName());
+        Assertions.assertEquals(m1.getPlaca(), resp.getPlaca());
+        Assertions.assertEquals(m1.getModelo(), resp.getModelo());
+        Assertions.assertEquals(m1.getOcupacao(), resp.getOcupacao());
+        Assertions.assertEquals(m1.getStatus(), resp.getStatus());
+    }
+
+    @Test
+    void validaMotoristaTestValido(){
+        Motorista m1 = new Motorista("Pedro Pertusi", "12345");
+        m1.setPlaca("ABC1D32");
+        m1.setModelo("Ford Eco Sport");
+        m1.setPrecoViagem(19.90);
+        m1.setOcupacao("INDISPONIVEL");
+        m1.setStatus("PENDENTE");
+        m1.setIdentifier("meu deus meu senhor me ajuda por favor");
+
+        Mockito.when(motoristaRepository.findByIdentifier("meu deus meu senhor me ajuda por favor")).thenReturn(m1);
+
+
+        MotoristaReturnDTO resp = motoristaService.validaMotorista("meu deus meu senhor me ajuda por favor");
+
+        Assertions.assertEquals(m1.getName(), resp.getName());
+        Assertions.assertEquals(m1.getPlaca(), resp.getPlaca());
+        Assertions.assertEquals(m1.getModelo(), resp.getModelo());
+        Assertions.assertEquals(m1.getOcupacao(), "DISPONIVEL");
+        Assertions.assertEquals(m1.getStatus(), "LIBERADO");
 
     }
 
+    @Test
+    void liberaMotoristaTestInvalido() {
+        Motorista m1 = new Motorista("Pedro Pertusi", "12345");
+        m1.setPlaca("ABC1D32");
+        m1.setModelo("Ford Eco Sport");
+        m1.setPrecoViagem(19.90);
+        m1.setOcupacao("INDISPONIVEL");
+        m1.setStatus("PENDENTE");
+        m1.setIdentifier("meu deus meu senhor me ajuda por favor");
 
+        Mockito.when(motoristaRepository.findByIdentifier("meu deus meu senhor me ajuda por favor")).thenReturn(m1);
+
+
+        MotoristaReturnDTO resp = motoristaService.liberaMotorista("meu deus meu senhor me ajuda por favor");
+
+        Assertions.assertNull(resp);
+    }
+
+    @Test
+    void liberaMotoristaTestValido() {
+        Motorista m1 = new Motorista("Pedro Pertusi", "12345");
+        m1.setPlaca("ABC1D32");
+        m1.setModelo("Ford Eco Sport");
+        m1.setPrecoViagem(19.90);
+        m1.setOcupacao("INDISPONIVEL");
+        m1.setStatus("LIBERADO");
+        m1.setIdentifier("meu deus meu senhor me ajuda por favor");
+
+        Mockito.when(motoristaRepository.findByIdentifier("meu deus meu senhor me ajuda por favor")).thenReturn(m1);
+
+
+        MotoristaReturnDTO resp = motoristaService.liberaMotorista("meu deus meu senhor me ajuda por favor");
+
+        Assertions.assertNotNull(resp);
+
+        
+    }
+
+    @Test
+    void deleteMotoristaTestTrue() {
+        Motorista m1 = new Motorista("Pedro Pertusi", "12345");
+        m1.setPlaca("ABC1D32");
+        m1.setModelo("Ford Eco Sport");
+        m1.setPrecoViagem(19.90);
+        m1.setOcupacao("INDISPONIVEL");
+        m1.setStatus("LIBERADO");
+        m1.setIdentifier("meu deus meu senhor me ajuda por favor");
+
+        Mockito.when(motoristaRepository.findByIdentifier("meu deus meu senhor me ajuda por favor")).thenReturn(m1);
+
+        Boolean resp = motoristaService.deleteMotorista("meu deus meu senhor me ajuda por favor");
+
+        Assertions.assertTrue(resp);
+    }
+
+    @Test
+    void deleteMotoristaTestfalse() {
+        Motorista m1 = null;
+
+        Mockito.when(motoristaRepository.findByIdentifier("meu deus meu senhor me ajuda por favor")).thenReturn(m1);
+
+        Boolean resp = motoristaService.deleteMotorista("meu deus meu senhor me ajuda por favor");
+
+        Assertions.assertFalse(resp);
+    }
+
+    @Test
+    void cancelaMotoristaTestValido() {
+        Motorista m1 = new Motorista("Pedro Pertusi", "12345");
+        m1.setPlaca("ABC1D32");
+        m1.setModelo("Ford Eco Sport");
+        m1.setPrecoViagem(19.90);
+        m1.setOcupacao("INDISPONIVEL");
+        m1.setStatus("LIBERADO");
+        m1.setIdentifier("meu deus meu senhor me ajuda por favor");
+
+        Mockito.when(motoristaRepository.findByIdentifier("meu deus meu senhor me ajuda por favor")).thenReturn(m1);
+
+        MotoristaReturnDTO resp = motoristaService.cancelaMotorista("meu deus meu senhor me ajuda por favor");
+
+        Assertions.assertEquals(m1.getName(), resp.getName());
+        Assertions.assertEquals(m1.getPlaca(), resp.getPlaca());
+        Assertions.assertEquals(m1.getModelo(), resp.getModelo());
+        Assertions.assertEquals(m1.getOcupacao(), "INDISPONIVEL");
+        Assertions.assertEquals(m1.getStatus(), "CANCELADO");
+    }
+
+    @Test
+    void cancelaMotoristaTestInvalido() {
+        Motorista m1 = null;
+
+        Mockito.when(motoristaRepository.findByIdentifier("meu deus meu senhor me ajuda por favor")).thenReturn(m1);
+
+        MotoristaReturnDTO resp = motoristaService.cancelaMotorista("meu deus meu senhor me ajuda por favor");
+
+        Assertions.assertNull(resp);
+    }
+
+    @Test
+    void motoristaDisponivelTestValido() {
+        Motorista m1 = new Motorista("Pedro Pertusi", "12345");
+        m1.setPlaca("ABC1D32");
+        m1.setModelo("Ford Eco Sport");
+        m1.setPrecoViagem(19.90);
+        m1.setOcupacao("INDISPONIVEL");
+        m1.setStatus("LIBERADO");
+        m1.setIdentifier("meu deus meu senhor me ajuda por favor");
+
+        Mockito.when(motoristaRepository.findFirstByOcupacao("DISPONIVEL")).thenReturn(m1);
+
+        MotoristaReturnDTO resp = motoristaService.motoristaDisponivel();
+
+        Assertions.assertEquals(m1.getName(), resp.getName());
+        Assertions.assertEquals(m1.getPlaca(), resp.getPlaca());
+        Assertions.assertEquals(m1.getModelo(), resp.getModelo());
+        Assertions.assertEquals(m1.getOcupacao(), "INDISPONIVEL");
+        Assertions.assertEquals(m1.getStatus(), "LIBERADO");
+    }
+
+    @Test
+    void motoristaDisponivelTestInvalido() {
+        Motorista m1 = null;
+
+        Mockito.when(motoristaRepository.findFirstByOcupacao("DISPONIVEL")).thenReturn(m1);
+
+        MotoristaReturnDTO resp = motoristaService.motoristaDisponivel();
+
+        Assertions.assertNull(resp);
+    }
 }

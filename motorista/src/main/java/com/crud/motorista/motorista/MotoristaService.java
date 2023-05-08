@@ -83,7 +83,7 @@ public class MotoristaService {
 
         if (m.getStatus() == "CANCELADO") return null;
 
-        if (m.getPlaca() != null && (m.getPlaca().matches("^[a-zA-Z]{2}\\d{2}[a-zA-Z]{1}\\d{2}$") || m.getPlaca().matches("^[a-zA-Z]{3}\\d{4}$")) && m.getModelo() != null && m.getPrecoViagem() != null && m.getPrecoViagem() > 0) {
+        if (m.getPlaca() != null && (m.getPlaca().matches("^[a-zA-Z]{3}\\d{1}[a-zA-Z]{1}\\d{2}$") || m.getPlaca().matches("^[a-zA-Z]{3}\\d{4}$")) && m.getModelo() != null && m.getPrecoViagem() != null && m.getPrecoViagem() > 0) {
             m.setStatus("LIBERADO");
             m.setOcupacao("DISPONIVEL");
             motoristaRepository.save(m);
@@ -96,7 +96,7 @@ public class MotoristaService {
     }
 
     public MotoristaReturnDTO motoristaDisponivel() {
-        Motorista m = motoristaRepository.findFirstByOcupMotorista("DISPONIVEL");
+        Motorista m = motoristaRepository.findFirstByOcupacao("DISPONIVEL");
         if (m == null) return null;
         m.setOcupacao("INDISPONIVEL");
         motoristaRepository.save(m);
