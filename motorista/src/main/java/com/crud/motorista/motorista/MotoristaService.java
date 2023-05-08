@@ -1,5 +1,6 @@
 package com.crud.motorista.motorista;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -18,7 +19,11 @@ public class MotoristaService {
     MotoristaRepository motoristaRepository;
 
     public List<MotoristaReturnDTO> listAll(){
-        return motoristaRepository.findAll().stream().map(motorista->Motorista.converteReturnDTO(motorista)).collect(Collectors.toList());
+        ArrayList<MotoristaReturnDTO> f = new ArrayList<MotoristaReturnDTO>();
+        for (Motorista m : motoristaRepository.findAll()) {
+            f.add(Motorista.converteReturnDTO(m));
+        }
+        return f;
     }
 
     public MotoristaReturnDTO cadastrarMotorista(MotoristaSaveDTO motorista){
