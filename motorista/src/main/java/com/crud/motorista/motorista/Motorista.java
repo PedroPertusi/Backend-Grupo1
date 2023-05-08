@@ -13,6 +13,7 @@ import lombok.*;
 @Entity
 @AllArgsConstructor
 @RequiredArgsConstructor
+@NoArgsConstructor
 public class Motorista {
     
     @Id
