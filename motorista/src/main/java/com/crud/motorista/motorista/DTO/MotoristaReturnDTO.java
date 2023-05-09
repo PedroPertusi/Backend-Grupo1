@@ -15,6 +15,8 @@ public class MotoristaReturnDTO {
 
     private String modelo;
 
+    private  Double precoViagem;
+
     private String identifier;
 
     private String ocupacao;
