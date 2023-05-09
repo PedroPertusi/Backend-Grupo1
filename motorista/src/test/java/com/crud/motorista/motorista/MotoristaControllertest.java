@@ -120,4 +120,17 @@ public class MotoristaControllertest {
         String resp = result.getResponse().getContentAsString();
         Assertions.assertEquals(om.writeValueAsString(mReturn), resp);
     }
+
+    @Test 
+    void available() throws Exception {
+        MotoristaReturnDTO mReturn = new MotoristaReturnDTO("Leozao Bota Quente", "ABC1D23", "Nissan GTR", 100.0, "Leo", "DISPONIVEL", "");
+        Mockito.when(motoristaService.motoristaDisponivel()).thenReturn(mReturn);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/motorista/available"))
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andReturn();
+        ObjectMapper om = new ObjectMapper();
+        String resp = result.getResponse().getContentAsString();
+        Assertions.assertEquals(om.writeValueAsString(mReturn), resp);
+        
+    }
 }

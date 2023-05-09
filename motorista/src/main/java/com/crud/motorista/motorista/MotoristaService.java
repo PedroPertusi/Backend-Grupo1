@@ -106,14 +106,9 @@ public class MotoristaService {
     public MotoristaReturnDTO liberaMotorista(String identifier) {
         Motorista m = motoristaRepository.findByIdentifier(identifier);
         if (m == null) return null;
-
         if (m.getStatus() == "PENDENTE" || m.getStatus() == "CANCELADO") return null;
-
         m.setOcupacao("DISPONIVEL");
         motoristaRepository.save(m);
         return Motorista.converteReturnDTO(m);
     }
-
-
-
 }
