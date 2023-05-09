@@ -42,7 +42,7 @@ public class MotoristaControllertest {
 
     @Test
     void listAll() throws Exception {
-        MotoristaReturnDTO m = new MotoristaReturnDTO("Pedro", "ABC", "ABC", "M1", "", "");
+        MotoristaReturnDTO m = new MotoristaReturnDTO("Pedro", "ABC", "ABC", 100.0,"M1", "", "");
         List<MotoristaReturnDTO> motoristas = new ArrayList<>();
         motoristas.add(m);
 
@@ -62,7 +62,7 @@ public class MotoristaControllertest {
     @Test
     void saveMotorista() throws Exception {
         MotoristaSaveDTO mSave = new MotoristaSaveDTO("Pedro", "ABC", "ABC", "M1", 100.00);
-        MotoristaReturnDTO mReturn = new MotoristaReturnDTO("Pedro", "ABC", "ABC", "M1", "", "");
+        MotoristaReturnDTO mReturn = new MotoristaReturnDTO("Pedro", "ABC", "ABC", 100.0, "M1", "", "");
 
         Mockito.when(motoristaService.cadastrarMotorista(Mockito.any())).thenReturn(mReturn);
 
@@ -80,7 +80,7 @@ public class MotoristaControllertest {
     @Test
     void editMotorista() throws Exception {
         MotoristaEditDTO mEdit = new MotoristaEditDTO("ABC1D23", "Nissan GTR", 100.00, "INDISPONIVEL");
-        MotoristaReturnDTO mReturn = new MotoristaReturnDTO("Leozão Bota Quente", "ABC1D23", "Nissan GTR", "Leo", "", "");
+        MotoristaReturnDTO mReturn = new MotoristaReturnDTO("Leozao Bota Quente", "ABC1D23", "Nissan GTR", 100.0, "Leo", "", "");
 
         Mockito.when(motoristaService.editarMotorista(Mockito.anyString(), Mockito.any())).thenReturn(mReturn);
 
@@ -109,7 +109,7 @@ public class MotoristaControllertest {
 
     @Test
     void cancelMotorista() throws Exception {
-        MotoristaReturnDTO mReturn = new MotoristaReturnDTO("Leozao Bota Quente", "ABC1D23", "Nissan GTR", "Leo", "INDISPONIVEL", "CANCELADO");
+        MotoristaReturnDTO mReturn = new MotoristaReturnDTO("Leozao Bota Quente", "ABC1D23", "Nissan GTR", 100.0, "Leo", "INDISPONIVEL", "CANCELADO");
         
         Mockito.when(motoristaService.cancelaMotorista(Mockito.anyString())).thenReturn(mReturn);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put("/motorista/{identifier}/cancel", "motorista123"))
