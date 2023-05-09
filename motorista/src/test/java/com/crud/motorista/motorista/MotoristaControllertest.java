@@ -103,7 +103,7 @@ public class MotoristaControllertest {
             .andExpect(MockMvcResultMatchers.status().isOk())
             .andReturn();
         String resp = result.getResponse().getContentAsString();
-        Assertions.assertEquals(resp, true);
+        Assertions.assertEquals(resp, "true");
     }
 
 
