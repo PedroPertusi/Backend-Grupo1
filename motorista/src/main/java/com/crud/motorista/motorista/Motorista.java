@@ -47,7 +47,7 @@ public class Motorista {
     private String ocupacao;
 
     public static MotoristaReturnDTO converteReturnDTO(Motorista m){
-        return new MotoristaReturnDTO(m.getName(), m.getPlaca(), m.getModelo(), m.getPrecoViagem(); m.getIdentifier(), m.getOcupacao(), m.getStatus());
+        return new MotoristaReturnDTO(m.getName(), m.getPlaca(), m.getModelo(), m.getPrecoViagem(), m.getIdentifier(), m.getOcupacao(), m.getStatus());
     }
 
 }
